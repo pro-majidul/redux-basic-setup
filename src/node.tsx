@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { decrement, increment } from './redux/features/counter/counterSlice';
+
+import { decrement, incrementByValue } from './redux/features/counter/counterSlice';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import type { RootState } from './redux/store';
 
 const Rotefile = () => {
 
-    const selector = useSelector((state) => state.counter.value);
-    const dispatch = useDispatch()
+    const selector = useAppSelector((state: RootState) => state.counter.value);
+    const dispatch = useAppDispatch()
 
     return (
 
@@ -35,7 +36,7 @@ const Rotefile = () => {
                     </button>
 
                     <button
-                        onClick={() => dispatch(increment())}
+                        onClick={() => dispatch(incrementByValue(20))}
                         className="flex h-12 w-20 items-center justify-center rounded-xl bg-blue-600 text-2xl font-bold text-white shadow-md transition-all duration-200 hover:bg-blue-700 active:scale-95"
                     >
                         +
