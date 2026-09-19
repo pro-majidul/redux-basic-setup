@@ -1,14 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from "./features/counter/counterSlice";
-import taskReducer from "./features/task/task.slice"
-import filtersReducer from "./features/filters/filters.slice"
+import { rootReducer } from './rootReducer';
 
 export const store = configureStore({
-    reducer: {
-        counter: counterReducer,
-        task: taskReducer,
-        filters: filtersReducer
-    },
+    reducer: rootReducer,
+    devTools: import.meta.env.VITE_NODE_ENV == 'development'
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
