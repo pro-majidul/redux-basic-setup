@@ -47,7 +47,7 @@ export function TaskItem({ task, onEdit }) {
           </span>
           <span className="text-xs text-muted-foreground">·</span>
           <span className="text-xs text-muted-foreground">
-            {formatDistanceToNow(task.updatedAt, { addSuffix: true })}
+            {/* {formatDistanceToNow(task.updatedAt, { addSuffix: true })} */}
           </span>
         </div>
 

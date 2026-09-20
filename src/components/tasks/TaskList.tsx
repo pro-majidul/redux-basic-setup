@@ -1,10 +1,14 @@
 import { TaskItem } from "./TaskItem";
 import { Card } from "@/components/ui/card";
+import { useAppSelector } from "@/redux/hooks";
+import type { RootState } from "@/redux/store";
+
+
 import { ClipboardListIcon, FilterIcon } from "lucide-react";
 
 export function TaskList({ onEdit }) {
-  const tasks = [];
-  const total = 0;
+  const tasks = useAppSelector((state: RootState) => state.task);
+  const total = useAppSelector((state: RootState) => state.task.length);
   const isFiltering = false;
 
   if (total === 0) {
@@ -34,7 +38,7 @@ export function TaskList({ onEdit }) {
   return (
     <div className="flex flex-col gap-3">
       {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} onEdit={onEdit} />
+        <TaskItem key={task.title} task={task} onEdit={onEdit} />
       ))}
     </div>
   );
