@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { taskItems, taskLable, taskPriorityItems, taskPriorityLabel } from "@/redux/features/task";
 
 export function TaskFormDialog({ open, mode, onClose }) {
   const { register, handleSubmit, control } = useForm();
@@ -76,6 +77,13 @@ export function TaskFormDialog({ open, mode, onClose }) {
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select status" />
+                      <SelectContent>
+                        {
+                          taskItems.map(task => <SelectItem key={task} value={task}>{
+                            taskLable[task]
+                          }</SelectItem>)
+                        }
+                      </SelectContent>
                     </SelectTrigger>
                   </Select>
                 )}
@@ -91,6 +99,11 @@ export function TaskFormDialog({ open, mode, onClose }) {
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select priority" />
+                      <SelectContent>
+                        {
+                          taskPriorityItems.map(priority => <SelectItem key={priority} value={priority}>{taskPriorityLabel[priority]}</SelectItem>)
+                        }
+                      </SelectContent>
                     </SelectTrigger>
                   </Select>
                 )}
