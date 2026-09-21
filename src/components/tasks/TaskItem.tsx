@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PriorityBadge } from "./PriorityBadge";
 import { cn } from "@/lib/utils";
-import type { initialstate, TTaskType } from "@/redux/features/task";
+import type { ITask, TTaskType } from "@/redux/features/task";
 
 const STATUS_DOT: Record<TTaskType, string> = {
   "pending": "bg-slate-400",
@@ -22,8 +22,8 @@ const STATUS_DOT: Record<TTaskType, string> = {
 };
 
 interface IProps {
-  task: initialstate,
-  onEdit: () => void;
+  task: ITask,
+  onEdit: (id: string) => void;
 }
 
 export function TaskItem({ task, onEdit }: IProps) {
@@ -94,7 +94,7 @@ export function TaskItem({ task, onEdit }: IProps) {
             ))} */}
           </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={() => onEdit(task.title)}>
+          <DropdownMenuItem onSelect={() => onEdit(task.id)}>
             <PencilIcon className="size-4" /> Edit
           </DropdownMenuItem>
           <DropdownMenuItem variant="destructive" onSelect={handleDelete}>

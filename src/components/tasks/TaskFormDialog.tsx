@@ -12,11 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { addTask, taskItems, taskLable, taskPriorityItems, taskPriorityLabel } from "@/redux/features/task";
+import { addTask, taskItems, taskLable, taskPriorityItems, taskPriorityLabel, type TTask } from "@/redux/features/task";
 import { useAppDispatch } from "@/redux/hooks";
 
 
-export function TaskFormDialog({ open, mode, onClose }) {
+export function TaskFormDialog({ open, mode, onClose }: ) {
   const { register, handleSubmit, control } = useForm();
   const dispatch = useAppDispatch()
   const onSubmit = (values) => {
@@ -24,6 +24,7 @@ export function TaskFormDialog({ open, mode, onClose }) {
     dispatch(addTask(values))
     onClose();
   };
+
 
   return (
     <Dialog
