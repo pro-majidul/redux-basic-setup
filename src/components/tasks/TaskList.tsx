@@ -6,7 +6,11 @@ import type { RootState } from "@/redux/store";
 
 import { ClipboardListIcon, FilterIcon } from "lucide-react";
 
-export function TaskList({ onEdit }) {
+interface IProps {
+  onEdit: () => void
+}
+
+export function TaskList({ onEdit }: IProps) {
   const tasks = useAppSelector((state: RootState) => state.task);
   const total = useAppSelector((state: RootState) => state.task.length);
   const isFiltering = false;

@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { TPriority, TTaskType } from "./task.type";
 
-interface initialstate {
+export interface initialstate {
     title: string,
     description: string,
-    priority: string,
-    status: string
+    priority: TPriority,
+    status: TTaskType
 }
 
-const initialState: initialstate[] = []
+export type TTask = initialstate[]
+
+const initialState: TTask = []
 
 const taskSlice = createSlice({
     name: "task",

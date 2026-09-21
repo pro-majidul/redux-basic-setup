@@ -1,4 +1,3 @@
-import { formatDistanceToNow } from "date-fns";
 import { MoreHorizontalIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { Card } from "@/components/ui/card";
@@ -9,20 +8,25 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PriorityBadge } from "./PriorityBadge";
 import { cn } from "@/lib/utils";
+import type { initialstate, TTaskType } from "@/redux/features/task";
 
-const STATUS_DOT = {
-  pending: "bg-slate-400",
+const STATUS_DOT: Record<TTaskType, string> = {
+  "pending": "bg-slate-400",
   "in-progress": "bg-blue-500",
-  done: "bg-emerald-500",
+  "done": "bg-emerald-500",
 };
 
-export function TaskItem({ task, onEdit }) {
+interface IProps {
+  task: initialstate,
+  onEdit: () => void;
+}
+
+export function TaskItem({ task, onEdit }: IProps) {
   const handleStatusChange = (value: string) => {
     console.log(value);
   };
@@ -39,7 +43,7 @@ export function TaskItem({ task, onEdit }) {
             aria-hidden
             className={cn(
               "inline-block h-2 w-2 rounded-full",
-              // STATUS_DOT[task.status],
+              STATUS_DOT[task.status],
             )}
           />
           <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -90,7 +94,7 @@ export function TaskItem({ task, onEdit }) {
             ))} */}
           </DropdownMenuRadioGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={() => onEdit(task.id)}>
+          <DropdownMenuItem onSelect={() => onEdit(task.title)}>
             <PencilIcon className="size-4" /> Edit
           </DropdownMenuItem>
           <DropdownMenuItem variant="destructive" onSelect={handleDelete}>
