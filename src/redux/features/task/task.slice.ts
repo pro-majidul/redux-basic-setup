@@ -7,7 +7,7 @@ export interface ITask {
     description: string,
     priority: TPriority,
     status: TTaskType,
-    createdAT: number,
+    createdAt: number,
     updatedAt: number
 }
 

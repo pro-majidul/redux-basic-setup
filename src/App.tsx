@@ -5,16 +5,18 @@ import { Toaster } from "@/components/ui/sonner";
 import { TaskList } from "@/components/tasks/TaskList";
 import {
   TaskFormDialog,
-  type DialogMode,
+  type TDialogMode
 } from "@/components/tasks/TaskFormDialog";
 import { TaskStats } from "@/components/tasks/TaskStats";
 import { FiltersBar } from "@/components/filters/FiltersBar";
 
 interface DialogState {
   open: boolean;
-  mode: DialogMode;
+  mode: TDialogMode;
   editingId: string | null;
 }
+
+
 
 const CLOSED_DIALOG: DialogState = {
   open: false,

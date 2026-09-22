@@ -12,14 +12,24 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { addTask, taskItems, taskLable, taskPriorityItems, taskPriorityLabel, type TTask } from "@/redux/features/task";
+import { addTask, taskItems, taskLable, taskPriorityItems, taskPriorityLabel, type ITask } from "@/redux/features/task";
 import { useAppDispatch } from "@/redux/hooks";
 
+export type TDialogMode = "edit" | "create"
+interface Iprops {
+  open: boolean,
+  mode: TDialogMode,
+  onClose: () => void
+}
+type TTaskForm = Pick<
+  ITask,
+  "title" | "description" | "priority" | "status"
+>;
 
-export function TaskFormDialog({ open, mode, onClose }: ) {
-  const { register, handleSubmit, control } = useForm();
+export function TaskFormDialog({ open, mode, onClose }: Iprops) {
+  const { register, handleSubmit, control } = useForm<TTaskForm>();
   const dispatch = useAppDispatch()
-  const onSubmit = (values) => {
+  const onSubmit = (values: TTaskForm) => {
     console.log(values);
     dispatch(addTask(values))
     onClose();
