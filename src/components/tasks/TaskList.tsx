@@ -5,7 +5,7 @@ import { ClipboardListIcon, FilterIcon } from "lucide-react";
 import { tasklist, totalTask } from "@/redux/features/task";
 
 interface IProps {
-  onEdit: () => void
+  onEdit: (id: string) => void
 }
 
 export function TaskList({ onEdit }: IProps) {

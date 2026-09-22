@@ -42,13 +42,11 @@ export function TaskItem({ task, onEdit }: IProps) {
 
   const dispatch = useAppDispatch()
 
-
   const handleStatusChange = (value: string) => {
     const status = value as TTaskType
     dispatch(updateStatus({ id: task.id, status }))
     console.log(value);
   };
-
 
   const handleDelete = () => {
     dispatch(deleteTask({ id: task.id }))

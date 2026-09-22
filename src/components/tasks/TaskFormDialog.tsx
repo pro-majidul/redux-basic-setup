@@ -12,26 +12,48 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { addTask, taskItems, taskLable, taskPriorityItems, taskPriorityLabel, type ITask } from "@/redux/features/task";
-import { useAppDispatch } from "@/redux/hooks";
+import { addTask, selectTaskById, taskItems, taskLable, taskPriorityItems, taskPriorityLabel, updateTask, type ITask } from "@/redux/features/task";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import type { RootState } from "@/redux/store";
+import { useEffect } from "react";
 
 export type TDialogMode = "edit" | "create"
 interface Iprops {
   open: boolean,
   mode: TDialogMode,
-  onClose: () => void
+  onClose: () => void,
+  editingId: string | null
 }
 type TTaskForm = Pick<
   ITask,
   "title" | "description" | "priority" | "status"
 >;
 
-export function TaskFormDialog({ open, mode, onClose }: Iprops) {
-  const { register, handleSubmit, control } = useForm<TTaskForm>();
+export function TaskFormDialog({ open, mode, onClose, editingId }: Iprops) {
+  const { register, handleSubmit, control, reset } = useForm<TTaskForm>();
   const dispatch = useAppDispatch()
+
+  const editingTask = useAppSelector((state: RootState) => editingId ? selectTaskById(state, editingId) : undefined)
+
+  useEffect(() => {
+    if (!open) return
+    if (mode === 'edit' && editingTask) {
+      reset({
+        title: editingTask.title,
+        description: editingTask.description,
+        priority: editingTask.priority,
+        status: editingTask.status
+      })
+    }
+  }, [reset, editingTask, mode, open])
+
   const onSubmit = (values: TTaskForm) => {
-    console.log(values);
-    dispatch(addTask(values))
+    if (mode === "edit" && editingTask) {
+      dispatch(updateTask({ id: editingTask?.id, change: values }))
+    } else {
+      dispatch(addTask(values))
+    }
+    reset()
     onClose();
   };
 
