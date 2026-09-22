@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PriorityBadge } from "./PriorityBadge";
 import { cn } from "@/lib/utils";
-import { taskItems, taskLable, updateStatus, type ITask, type TTaskType } from "@/redux/features/task";
+import { deleteTask, taskItems, taskLable, updateStatus, type ITask, type TTaskType } from "@/redux/features/task";
 import { formatDistanceToNow } from "date-fns";
 import { useAppDispatch } from "@/redux/hooks";
 
@@ -51,7 +51,7 @@ export function TaskItem({ task, onEdit }: IProps) {
 
 
   const handleDelete = () => {
-
+    dispatch(deleteTask({ id: task.id }))
     console.log("task deleted")
     toast.warning("Task deleted", { description: task.title });
   };
