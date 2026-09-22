@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PriorityBadge } from "./PriorityBadge";
 import { cn } from "@/lib/utils";
-import { taskItems, taskLable, type ITask, type TTaskType } from "@/redux/features/task";
+import { deleteTask, taskItems, taskLable, type ITask, type TTaskType } from "@/redux/features/task";
 import { formatDistanceToNow } from "date-fns";
+import { useAppDispatch } from "@/redux/hooks";
 
 const STATUS_DOT: Record<TTaskType, string> = {
   "pending": "bg-slate-400",
@@ -39,7 +40,11 @@ export function TaskItem({ task, onEdit }: IProps) {
     console.log(value);
   };
 
-  const handleDelete = () => {
+  // const dispatch = useAppDispatch()
+
+  const handleDelete = (id: string) => {
+    // dispatch(deleteTask(id))
+    console.log("task deleted")
     toast.warning("Task deleted", { description: task.title });
   };
 
@@ -105,7 +110,7 @@ export function TaskItem({ task, onEdit }: IProps) {
           <DropdownMenuItem onSelect={() => onEdit(task.id)}>
             <PencilIcon className="size-4" /> Edit
           </DropdownMenuItem>
-          <DropdownMenuItem variant="destructive" onSelect={handleDelete}>
+          <DropdownMenuItem variant="destructive" onSelect={handleDelete(task.id)}>
             <Trash2Icon className="size-4" /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

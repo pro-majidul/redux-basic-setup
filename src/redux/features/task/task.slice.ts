@@ -36,10 +36,31 @@ const taskSlice = createSlice({
             reducer: (state, action: PayloadAction<ITask>) => {
                 state.push(action.payload)
             }
+        },
+        updateTask: (state, action) => {
+            const { id, change } = action.payload;
+            const task = state.find(item => item.id === id)
+            if (!task) return
+            Object.assign(task, change, { updatedAt: Date.now })
+        },
+        updateStatus: (state, action) => {
+            const { id, status } = action.payload;
+            const task = state.find(item => item.id === id)
+            if (!task) return;
+            task.status = status;
+            task.updatedAt = Date.now()
+
+        },
+        deleteTask: (state, action) => {
+            const { id } = action.payload;
+            const taskIndex = state.findIndex(item => item.id === id);
+            if (taskIndex === -1) return;
+            state.splice(taskIndex, 1);
+
         }
     }
 })
 
-export const { addTask } = taskSlice.actions;
+export const { addTask, updateTask, updateStatus, deleteTask } = taskSlice.actions;
 
 export default taskSlice.reducer
