@@ -37,13 +37,13 @@ const taskSlice = createSlice({
                 state.push(action.payload)
             }
         },
-        updateTask: (state, action) => {
+        updateTask: (state, action: PayloadAction<{ id: string, change: Pick<ITask, "title" | "description" | "priority" | "status"> }>) => {
             const { id, change } = action.payload;
             const task = state.find(item => item.id === id)
             if (!task) return
             Object.assign(task, change, { updatedAt: Date.now })
         },
-        updateStatus: (state, action) => {
+        updateStatus: (state, action: PayloadAction<{ id: string, status: TTaskType }>) => {
             const { id, status } = action.payload;
             const task = state.find(item => item.id === id)
             if (!task) return;
@@ -51,7 +51,7 @@ const taskSlice = createSlice({
             task.updatedAt = Date.now()
 
         },
-        deleteTask: (state, action) => {
+        deleteTask: (state, action: PayloadAction<{ id: string }>) => {
             const { id } = action.payload;
             const taskIndex = state.findIndex(item => item.id === id);
             if (taskIndex === -1) return;
