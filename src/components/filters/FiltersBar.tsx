@@ -10,7 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { taskItems, taskLable, taskPriorityItems, taskPriorityLabel } from "@/redux/features/task";
-import type { TSorttype } from "@/redux/features/filters";
+import { chanageQueryFilter, SelectPriorityFilter, SelectQueryFilter, SelectSortMode, SelectStatusFilter, type TSorttype } from "@/redux/features/filters";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 
 
@@ -20,15 +21,26 @@ const SORT_LABEL: Record<TSorttype, string> = {
 };
 
 export function FiltersBar() {
+
+  const dispatch = useAppDispatch()
+  const status = useAppSelector(SelectStatusFilter)
+  const priority = useAppSelector(SelectPriorityFilter)
+  const query = useAppSelector(SelectQueryFilter)
+  const sort = useAppSelector(SelectSortMode)
+
   return (
     <Card className="flex flex-col gap-3 p-3 sm:flex-row sm:items-center">
       <div className="relative flex-1">
         <SearchIcon className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-        <Input placeholder="Search tasks…" className="pl-9" />
+        <Input placeholder="Search tasks…" className="pl-9"
+          onChange={(e) => dispatch(chanageQueryFilter(e.target.value))}
+        />
       </div>
 
       <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center">
-        <Select>
+        <Select
+          value={status}
+        >
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>
@@ -40,7 +52,7 @@ export function FiltersBar() {
           </SelectContent>
         </Select>
 
-        <Select>
+        <Select value={priority}>
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>
@@ -51,7 +63,7 @@ export function FiltersBar() {
           </SelectContent>
         </Select>
 
-        <Select>
+        <Select value={sort}>
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>

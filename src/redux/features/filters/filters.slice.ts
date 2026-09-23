@@ -26,9 +26,12 @@ const filtersSlice = createSlice({
         changeSortFilter: (state, action) => {
             state.sort = action.payload
         },
+        clearFilters: () => {
+            return initialState
+        }
     }
 })
 
-export const { chanageQueryFilter, chanageStatusFilter, changePriorityFilter, changeSortFilter } = filtersSlice.actions
+export const { chanageQueryFilter, chanageStatusFilter, changePriorityFilter, changeSortFilter, clearFilters } = filtersSlice.actions
 
 export default filtersSlice.reducer
