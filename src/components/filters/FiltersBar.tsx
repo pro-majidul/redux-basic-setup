@@ -10,8 +10,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { taskItems, taskLable, taskPriorityItems, taskPriorityLabel } from "@/redux/features/task";
+import type { TSorttype } from "@/redux/features/filters";
 
-const SORT_LABEL = {
+
+
+const SORT_LABEL: Record<TSorttype, string> = {
   newest: "Newest first",
   oldest: "Oldest first",
 };
@@ -52,9 +55,13 @@ export function FiltersBar() {
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>
-          {/* <SelectContent>
-            {(Object.keys(SORT_LABEL)).map((s) => <SelectItem key={s} value={s}>{SORT_LABEL[s]}</SelectItem>)}
-          </SelectContent> */}
+          <SelectContent>
+            {(Object.keys(SORT_LABEL) as TSorttype[]).map((s) => (
+              <SelectItem key={s} value={s}>
+                {SORT_LABEL[s]}
+              </SelectItem>
+            ))}
+          </SelectContent>
         </Select>
       </div>
 
