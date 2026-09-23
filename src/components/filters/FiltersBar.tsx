@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { taskItems, taskLable, taskPriorityItems, taskPriorityLabel } from "@/redux/features/task";
-import { chanageQueryFilter, SelectPriorityFilter, SelectQueryFilter, SelectSortMode, SelectStatusFilter, type TSorttype } from "@/redux/features/filters";
+import { chanageQueryFilter, chanageStatusFilter, changePriorityFilter, changeSortFilter, clearFilters, SelectPriorityFilter, SelectSortMode, SelectStatusFilter, type TSorttype } from "@/redux/features/filters";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 
@@ -25,7 +25,6 @@ export function FiltersBar() {
   const dispatch = useAppDispatch()
   const status = useAppSelector(SelectStatusFilter)
   const priority = useAppSelector(SelectPriorityFilter)
-  const query = useAppSelector(SelectQueryFilter)
   const sort = useAppSelector(SelectSortMode)
 
   return (
@@ -40,6 +39,7 @@ export function FiltersBar() {
       <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center">
         <Select
           value={status}
+          onValueChange={(value) => dispatch(chanageStatusFilter(value))}
         >
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
@@ -52,7 +52,9 @@ export function FiltersBar() {
           </SelectContent>
         </Select>
 
-        <Select value={priority}>
+        <Select value={priority}
+          onValueChange={(value) => dispatch(changePriorityFilter(value))}
+        >
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>
@@ -63,7 +65,9 @@ export function FiltersBar() {
           </SelectContent>
         </Select>
 
-        <Select value={sort}>
+        <Select value={sort}
+          onValueChange={(value) => dispatch(changeSortFilter(value))}
+        >
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>
@@ -77,7 +81,7 @@ export function FiltersBar() {
         </Select>
       </div>
 
-      <Button variant="ghost" size="sm">
+      <Button variant="ghost" size="sm" onClick={() => dispatch(clearFilters())}>
         <XIcon className="size-4" /> Clear
       </Button>
     </Card>
