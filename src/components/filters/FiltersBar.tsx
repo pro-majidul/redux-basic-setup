@@ -9,11 +9,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { taskItems, taskLable, taskPriorityItems, taskPriorityLabel } from "@/redux/features/task";
 
 const SORT_LABEL = {
   newest: "Newest first",
   oldest: "Oldest first",
-  priority: "By priority",
 };
 
 export function FiltersBar() {
@@ -25,12 +25,15 @@ export function FiltersBar() {
       </div>
 
       <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center">
-        <Select value={status}>
+        <Select>
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All statuses</SelectItem>
+            {
+              taskItems.map((s) => <SelectItem key={s} value={s}>{taskLable[s]}</SelectItem>)
+            }
           </SelectContent>
         </Select>
 
@@ -40,6 +43,8 @@ export function FiltersBar() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All priorities</SelectItem>
+            {/* {taskPriorityItems.map((s) => <SelectItem key={s} value={s}>{taskPriorityLabel[s]}</SelectItem>)} */}
+
           </SelectContent>
         </Select>
 
@@ -47,7 +52,9 @@ export function FiltersBar() {
           <SelectTrigger className="min-w-[7.5rem]">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent></SelectContent>
+          {/* <SelectContent>
+            {(Object.keys(SORT_LABEL)).map((s) => <SelectItem key={s} value={s}>{SORT_LABEL[s]}</SelectItem>)}
+          </SelectContent> */}
         </Select>
       </div>
 
