@@ -43,7 +43,7 @@ export function FiltersBar() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All priorities</SelectItem>
-            {/* {taskPriorityItems.map((s) => <SelectItem key={s} value={s}>{taskPriorityLabel[s]}</SelectItem>)} */}
+            {taskPriorityItems.map((s) => <SelectItem key={s} value={s}>{taskPriorityLabel[s]}</SelectItem>)}
 
           </SelectContent>
         </Select>
