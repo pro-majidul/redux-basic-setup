@@ -2,14 +2,14 @@ import { TaskItem } from "./TaskItem";
 import { Card } from "@/components/ui/card";
 import { useAppSelector } from "@/redux/hooks";
 import { ClipboardListIcon, FilterIcon } from "lucide-react";
-import { tasklist, totalTask } from "@/redux/features/task";
+import { SelectAllTaskList, totalTask } from "@/redux/features/task";
 
 interface IProps {
   onEdit: (id: string) => void
 }
 
 export function TaskList({ onEdit }: IProps) {
-  const tasks = useAppSelector(tasklist);
+  const tasks = useAppSelector(SelectAllTaskList);
   const total = useAppSelector(totalTask);
   const isFiltering = false;
 
