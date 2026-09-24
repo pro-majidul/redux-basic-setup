@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 
 export function TaskStats() {
-  const stats = { byStatus: "", total: 0, byPriority: "" };
+  const stats = { byStatus: { pending: 0, "in-progress": 0, done: 0 }, total: 0, byPriority: { low: 0, medium: 0, high: 0 } };
 
   const items: Array<{ label: string; value: number; tone: string }> = [
     { label: "Total", value: stats.total, tone: "text-foreground" },
